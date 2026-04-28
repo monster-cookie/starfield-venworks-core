@@ -1,0 +1,14 @@
+FormKey: 000821:Venworks-Core.esm
+EditorID: VKWS_FAILED_NOT_IMPLEMENTED
+FormVersion: 582
+Description:
+  TargetLanguage: English
+  Value: This is not implemented yet
+Name:
+  TargetLanguage: English
+  Value: FAILED_NOT_IMPLEMENTED
+DisplayTime: 2
+BNAM: 4294967295
+ShortTitle:
+  TargetLanguage: English
+  Value: Error

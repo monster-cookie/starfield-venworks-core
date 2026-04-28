@@ -1,0 +1,14 @@
+FormKey: 000825:Venworks-Core.esm
+EditorID: VWKS_PlayerLevel
+FormVersion: 582
+Name:
+  TargetLanguage: English
+  Value: Player Level
+Abbreviation:
+  TargetLanguage: English
+  Value: LVL
+DefaultValue: 0
+Flags:
+- DefaultToZero
+- GodModeImmune
+Type: Variable

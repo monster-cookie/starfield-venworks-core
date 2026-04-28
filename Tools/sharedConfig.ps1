@@ -30,7 +30,9 @@ Write-Host -ForegroundColor Yellow "BGS Archive2 path is $ENV:TOOL_PATH_ARCHIVER
 Write-Host -ForegroundColor Yellow "BGS xtexconv path is $ENV:TOOL_PATH_XTEXCONV"
 Write-Host -ForegroundColor Yellow "BGS AssetWatcher path is $ENV:TOOL_PATH_ASSET_WATCHER"
 Write-Host -ForegroundColor Yellow "BGS AssetWatcher Plugins path is $ENV:TOOL_PATH_ASSET_WATCHER_PLUGINS"
+Write-Host -ForegroundColor Yellow "`nSpriggit Settings:"
 Write-Host -ForegroundColor Yellow "Spriggit CLI path is $ENV:TOOL_PATH_SPRIGGIT"
+Write-Host -ForegroundColor Yellow "Spriggit Version is $ENV:SPRIGGIT_VERSION"
 Write-Host -ForegroundColor Yellow "`nSteam Settings:"
 Write-Host -ForegroundColor Yellow "Starfield game folder is set to $ENV:STEAM_GAME_FOLDER."
 Write-Host -ForegroundColor Yellow "Starfield data folder is set to $ENV:STEAM_DATA_FOLDER."
@@ -44,15 +46,14 @@ Write-Host -ForegroundColor Yellow "Module Scripting Folder is $ENV:MODULE_SCRIP
 Write-Host -ForegroundColor Yellow "Module Scripting Source Folder is $ENV:MODULE_SCRIPTS_SOURCE_PATH"
 
 $Global:Databases = @(
-  ("Patch-NovaSkills-TNTechRunner.esp"),
-  ("Patch-NovaSkills-TNRealisticOxygenMeter.esp")
+  ("Venworks-Core.esm")
 )
 
 $Global:ScriptingNamespaceModuleCompany = "Venworks"
-$Global:ScriptingNamespaceModuleName = "PatchCentral"
+$Global:ScriptingNamespaceModuleName = "Core"
 
 $Global:ScriptingNamespaceSharedLibraryCompany = "Venworks"
-$Global:ScriptingNamespaceSharedLibraryName = "Shared"
+$Global:ScriptingNamespaceSharedLibraryName = "Core"
 
 Write-Host -ForegroundColor Yellow "Papyrus Scripting namespace for module is $Global:ScriptingNamespaceModuleCompany`:$Global:ScriptingNamespaceModuleName"
 Write-Host -ForegroundColor Yellow "Papyrus Scripting namespace for shared library is $Global:ScriptingNamespaceSharedLibraryCompany`:$Global:ScriptingNamespaceSharedLibraryName"

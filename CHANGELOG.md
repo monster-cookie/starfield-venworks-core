@@ -3,6 +3,7 @@
 ## Version 2.0.1
 
 - Added new Radiant Engine themes for small, medium, and large manmade clutter packins.
+- Radiant Engine is too problematic so pulling in the unreleased SceneManager I wrote for QOG. This will function as a bridge between the cells and Radiant Engine triggers/markers.
 
 ## Version 2.0.0
 

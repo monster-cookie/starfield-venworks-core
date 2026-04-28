@@ -22,6 +22,6 @@ Spell Property SpellToEnable Auto Const Mandatory
 ;;; Events
 ;;;
 Event OnQuestInit()
-  LogUserInformational(creationName=Venworks_ModName, moduleName="Venworks:Core:Inject_SpellToPlayer", functionName="OnQuestInit", logMessage="Spell " + SpellToEnable + " added to player.")
+  LogUserInformational(creationName=Venworks_ModName, moduleName="Inject_SpellToPlayer", functionName="OnQuestInit", logMessage="Spell " + SpellToEnable + " added to player.")
   PlayerRef.AddSpell(SpellToEnable, false)
 EndEvent

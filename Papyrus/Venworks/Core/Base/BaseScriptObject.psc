@@ -12,7 +12,7 @@ Import Venworks:Core:Logging
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Utility Functions
+;;; Functions - Utility
 ;;;
 var Function Ternary(Bool conditional, Var result1, Var result2) global
   If (conditional)
@@ -25,7 +25,7 @@ EndFunction
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Logging (System) Functions
+;;; Functions - Logging (System)
 ;;;
 Function LogSystemInformational(String creationName, String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
@@ -50,7 +50,7 @@ EndFunction
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Logging (User) Functions
+;;; Functions - Logging (User)
 ;;;
 Function LogUserInformational(String creationName, String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;

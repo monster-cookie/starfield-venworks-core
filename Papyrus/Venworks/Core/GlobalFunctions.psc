@@ -3,14 +3,6 @@ ScriptName Venworks:Core:GlobalFunctions Extends ScriptObject hidden
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Imports
-;;;
-Import Venworks:Core:Enumerations
-Import Venworks:Core:Logging
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
 ;;; Functions
 ;;;
 Bool Function IsVenworksCoreInstalled() global

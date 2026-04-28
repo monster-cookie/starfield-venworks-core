@@ -32,5 +32,5 @@ Event OnEffectStart(ObjectReference akTarget, Actor akCaster, MagicEffect akBase
   LogSeverity severityTable = new LogSeverity
   Actor target = akTarget.GetSelfAsActor()
 	target.AddSpell(AbilityToApply, false)
-  LogUser(creationName=Venworks_ModName, moduleName="Venworks:Core:ApplySpellToTarget", functionName="OnEffectStart", logMessage="Added ability with form ID " + AbilityToApply + " to target with form ID " + target + ".", severity=severityTable.Info)
+  LogUser(creationName=Venworks_ModName, moduleName="ApplySpellToTarget", functionName="OnEffectStart", logMessage="Added ability with form ID " + AbilityToApply + " to target with form ID " + target + ".", severity=severityTable.Info)
 EndEvent

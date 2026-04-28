@@ -12,7 +12,19 @@ Import Venworks:Core:Logging
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Utility Functions
+;;; Functions - Helper (Spawning)
+;;;
+Function HelperSpawnObject(ObjectReference marker, FormList possibleObjects)
+  Form objectToSpawn = possibleObjects.GetAt(Utility.RandomInt(0, possibleObjects.GetSize()-1))
+  ObjectReference spawnedObjectRef = marker.PlaceAtMe(objectToSpawn)
+  spawnedObjectRef.SetPosition(marker.GetPositionX(), marker.GetPositionY(), marker.GetPositionZ())
+  spawnedObjectRef.SetAngle(0, 0, marker.GetAngleZ())
+EndFunction
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Functions - Utility
 ;;;
 var Function Ternary(Bool conditional, Var result1, Var result2) global
   If (conditional)
@@ -25,7 +37,7 @@ EndFunction
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Logging (System) Functions
+;;; Functions - Logging (System)
 ;;;
 Function LogSystemInformational(String creationName, String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
@@ -50,7 +62,7 @@ EndFunction
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Logging (User) Functions
+;;; Functions - Logging (User)
 ;;;
 Function LogUserInformational(String creationName, String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;

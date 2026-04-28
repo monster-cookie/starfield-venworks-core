@@ -1,0 +1,18 @@
+FormKey: 00085B:Venworks-Core.esm
+MajorRecordFlagsRaw: 8388612
+EditorID: REOverlayTravelC2
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- NotPlayable
+- 0x800000
+Components:
+- MutagenObjectType: KeywordFormComponent
+ForcedLocations:
+- 000852:Venworks-Core.esm
+Model:
+  File: Markers\EditorMarkers\FlagMarkerPink01.nif
+  LightLayer: 1
+MaxAngle: 1
+UnknownDNAMFloat: 1
+DNAMDataTypeState:
+- Break0

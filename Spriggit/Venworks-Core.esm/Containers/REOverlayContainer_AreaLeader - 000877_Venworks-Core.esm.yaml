@@ -1,0 +1,21 @@
+FormKey: 000877:Venworks-Core.esm
+EditorID: REOverlayContainer_AreaLeader
+FormVersion: 582
+Name:
+  TargetLanguage: English
+  Value: Storage Box
+Model:
+  File: SetDressing\AmmoBox02.nif
+  LightLayer: 1
+Items:
+- Item:
+    Item: 3D0945:Starfield.esm
+    Count: 1
+- Item:
+    Item: 1B9E03:Starfield.esm
+    Count: 1
+Keywords:
+- 184462:Starfield.esm
+ForcedLocations:
+- 226AF6:Starfield.esm
+NativeTerminal: 38D14B:Starfield.esm

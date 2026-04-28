@@ -22,9 +22,9 @@ Form Property ItemToInject Auto Const Mandatory
 ;;; Events
 ;;;
 Event OnQuestInit()
-  LogUserInformational(creationName=Venworks_ModName, moduleName="Venworks:Core:Inject_InventoryItem", functionName="OnQuestInit", logMessage="OnQuestInit triggered.")
+  LogUserInformational(creationName=Venworks_ModName, moduleName="Inject_InventoryItem", functionName="OnQuestInit", logMessage="OnQuestInit triggered.")
   If PlayerRef.GetItemCount(ItemToInject) <= 0
     PlayerRef.AddItem(ItemToInject, 1, false)
-    LogUserInformational(creationName=Venworks_ModName, moduleName="Venworks:Core:Inject_InventoryItem", functionName="OnQuestInit", logMessage="Item added to player inventory.")
+    LogUserInformational(creationName=Venworks_ModName, moduleName="Inject_InventoryItem", functionName="OnQuestInit", logMessage="Item added to player inventory.")
   EndIf
 EndEvent

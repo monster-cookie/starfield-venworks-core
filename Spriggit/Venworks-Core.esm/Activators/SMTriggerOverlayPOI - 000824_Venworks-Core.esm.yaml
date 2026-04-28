@@ -1,0 +1,23 @@
+FormKey: 000824:Venworks-Core.esm
+EditorID: SMTriggerOverlayPOI
+FormVersion: 582
+VirtualMachineAdapter:
+  Scripts:
+  - Name: Venworks:Core:SceneManager:SMTriggerOverlay
+    Properties:
+    - MutagenObjectType: ScriptObjectProperty
+      Name: StoryEventKeyword
+      Object: 209095:Starfield.esm
+    - MutagenObjectType: ScriptIntProperty
+      Name: TriggerType
+      Data: 1
+    - MutagenObjectType: ScriptObjectProperty
+      Name: Venworks_DebugEnabled
+      Object: 000814:Venworks-Core.esm
+Model:
+  LightLayer: 1
+ForcedLocations:
+- 092FE8:Starfield.esm
+MarkerColor: '#00CC4C33'
+Flags: []
+ActivationAngle: 360

@@ -1,0 +1,10 @@
+FormKey: 00082C:Venworks-Core.esm
+EditorID: VWKS_PlayerLevelHandlerNode
+FormVersion: 582
+Parent: 16556F:Starfield.esm
+PreviousSibling: 028FBE:Starfield.esm
+QuestFlags:
+- SharesEvent
+MaxConcurrentQuests: 0
+Quests:
+- Quest: 000823:Venworks-Core.esm

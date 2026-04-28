@@ -1,0 +1,17 @@
+FormKey: 0008A0:Venworks-Core.esm
+MajorRecordFlagsRaw: 8388608
+EditorID: SMMarker_Clutter_Surface_T2
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x800000
+Components:
+- MutagenObjectType: KeywordFormComponent
+ForcedLocations:
+- 00089A:Venworks-Core.esm
+Model:
+  File: Markers\PackInMarkers\LPIMarker_Clutter_Desktop02.nif
+  LightLayer: 1
+MaxAngle: 1
+UnknownDNAMFloat: 1
+DNAMDataTypeState:
+- Break0

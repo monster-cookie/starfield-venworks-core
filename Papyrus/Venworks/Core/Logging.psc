@@ -13,9 +13,6 @@ Import Venworks:Core:Enumerations
 ;;; Functions
 ;;;
 
-;; ****************************************************************************
-;; Debug Message Handler
-;;
 Function LogSystem(string creationName, string moduleName, string functionName, string logMessage, int severity) Global DebugOnly
   LogSeverity severityTable = new LogSeverity;
 

@@ -1,0 +1,15 @@
+SpriggitSource:
+  PackageName: Spriggit.Yaml.Starfield
+  Version: 0.40.1
+ModKey: Venworks-Core.esm
+GameRelease: Starfield
+ModHeader:
+  Flags:
+  - Master
+  - Light
+  FormVersion: 582
+  Author: DEFAULT
+  MasterReferences:
+  - Master: Starfield.esm
+  Branch: Main
+  InteriorCellCount: 0

@@ -1,0 +1,17 @@
+FormKey: 000895:Venworks-Core.esm
+MajorRecordFlagsRaw: 8388608
+EditorID: SMMarker_Clutter_Floor_T4
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x800000
+Components:
+- MutagenObjectType: KeywordFormComponent
+ForcedLocations:
+- 000893:Venworks-Core.esm
+Model:
+  File: Markers\PackInMarkers\PIMarkerXLarge01.nif
+  LightLayer: 1
+MaxAngle: 1
+UnknownDNAMFloat: 1
+DNAMDataTypeState:
+- Break0

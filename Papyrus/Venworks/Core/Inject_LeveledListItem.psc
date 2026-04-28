@@ -24,6 +24,6 @@ Int Property ToInjectLeveledItemEntryCount Auto Const Mandatory
 ;;; Events
 ;;;
 Event OnQuestInit()
-  LogUserInformational(creationName=Venworks_ModName, moduleName="Venworks:Core:Inject_LeveledListItem", functionName="OnQuestInit", logMessage="Injecting " + ToInjectLeveledItemEntryCount + " " + ToInjectLeveledItemEntryItem + " items at level " + ToInjectLeveledItemEntryLevel + " into " + InjectIntoLeveledItemList +  ".")
+  LogUserInformational(creationName=Venworks_ModName, moduleName="Inject_LeveledListItem", functionName="OnQuestInit", logMessage="Injecting " + ToInjectLeveledItemEntryCount + " " + ToInjectLeveledItemEntryItem + " items at level " + ToInjectLeveledItemEntryLevel + " into " + InjectIntoLeveledItemList +  ".")
   InjectIntoLeveledItemList.AddForm(ToInjectLeveledItemEntryItem, ToInjectLeveledItemEntryLevel, ToInjectLeveledItemEntryCount)
 EndEvent
