@@ -24,7 +24,7 @@ String Property Venworks_ModName="VenworksCore" Auto Const Mandatory
 
 ;; These properties perform a standardized range check (distance between the player and the trigger).
 Group RangeCheck
-  Float Property RangeCheckDistance=500.00 Auto Const Mandatory
+  Float Property RangeCheckDistance=700.00 Auto Const Mandatory
   { When player's distance to trigger is less than this, stage RangeCheckStage will be set. }
   
   Int Property RangeCheckStage=100 Auto Const Mandatory

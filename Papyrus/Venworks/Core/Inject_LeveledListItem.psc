@@ -3,6 +3,14 @@ ScriptName Venworks:Core:Inject_LeveledListItem extends Venworks:Core:Base:BaseQ
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;; Imports
+;;;
+Import Venworks:Core:Enumerations
+Import Venworks:Core:Logging
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Global Variables
 ;;;
 GlobalVariable Property Venworks_DebugEnabled Auto Const Mandatory

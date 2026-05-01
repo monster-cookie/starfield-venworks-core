@@ -5,6 +5,9 @@ FormVersion: 582
 StarfieldMajorRecordFlags:
 - NotPlayable
 - 0x800000
+ObjectBounds:
+  First: -0.6645508, -0.6645508, 0
+  Second: 0.6645508, 0.8769531, 1.8291016
 Components:
 - MutagenObjectType: KeywordFormComponent
 ForcedLocations:

@@ -12,4 +12,4 @@ ModHeader:
   MasterReferences:
   - Master: Starfield.esm
   Branch: Main
-  InteriorCellCount: 0
+  InteriorCellCount: 3

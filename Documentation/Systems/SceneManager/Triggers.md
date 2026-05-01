@@ -4,23 +4,23 @@ Like the BGS Radiant Engine, Scene Manager uses a variety of triggers and marker
 
 ## Scene Manager Trigger Variants [REQUIRED]
 
-One of these is required in all Scene Manager managed POI and should be in the middle of the POI like MCS_SMMarker_Center.
+One of these is required in all Scene Manager managed POI and should be in the middle of the POI like SMMarker_Center.
 
-### SMTriggerOverlayAssault
-
-This controls contacting the story manager to request a overlay quest (using the SMEncounterTypeAssault event keyword) for the POI.
-
-### SMTriggerOverlayPOI
+### SMTriggerStoryPOI
 
 This controls contacting the story manager to request a overlay quest (using the SMEncounterTypeStoryOverlay event keyword) for the POI.
 
-### SMTriggerOverlayClutter
+### SMTriggerStoryClutter
 
 This controls contacting the story manager to request a overlay quest (using the SMEncounterTypeStoryOverlay event keyword) for the POI.
 
-### SMTriggerShip
+### SMTriggerStoryShip
 
 This controls contacting the story manager to request a overlay quest (using the SMEncounterTypeStoryShip event keyword) for the POI.
+
+### SMTriggerStorySpace
+
+This controls contacting the story manager to request a overlay quest (using the SMTriggerSpace event keyword) for the POI.
 
 ## NPC Markers
 

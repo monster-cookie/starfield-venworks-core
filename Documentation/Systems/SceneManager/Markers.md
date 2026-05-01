@@ -48,53 +48,27 @@ This is a key quest item for the player to find that reference another location 
 
 #### Bosses/Leaders
 
-These markers denote where the group's leader would spawn. This method isn't well used by BGS, they tend to use a REOverlayTrigger_AreaLeader activator instead.
+These markers denote where the group's leader would spawn.
 
-- REOverlayLeaderMarker (RELeaderMarkerLocRef)
+#### SMMarker_Boss (RELeaderMarkerLocRef)
 
-#### Captives
-
-These markers denote logical places for a corpse to be spawn as a quest element. Please note these are Furniture items instead of and activator or static.
-
-- REOverlayCaptiveMarker (RECaptiveMarkerLocRef)
-
-#### Wounded
-
-These markers denote a safe area for a wounded quest NPC to spawn. Please note these are Furniture items instead of and activator or static.
-
-- REOverlayWoundedMarker (REWoundedMarkerLocRef)
+#### SMMarker_Boss_Mini (RELeaderMarkerLocRef)
 
 ### Containers
 
 These markers control where containers are spawned.
 
-#### REOverlayContainerClutter (REContainerLocRef) [ADDED IN VENWORKS CORE]
+#### SMMarker_Container_Small (REContainerLocRef)
 
-This is a small clutter container like a medkit, toolbox, etc.
+#### SMMarker_Container_Large (REContainerLocRef)
 
-#### REOverlayContainerChest (REContainerLocRef) [ADDED IN VENWORKS CORE]
+#### SMMarker_Container_Boss (REContainerLocRef)
 
-This is a loot container like a chest, contraband case, etc.
-
-#### REOverlayContainer_AreaLeader (REContainerLocRef) [ADDED IN VENWORKS CORE]
-
-This is a boss loot container like a science, military, industrial, creature, etc. Please note this is a container object not a traditional marker.
-
-#### REOverlayContainerHuman (REContainerLocRef)
-
-This is a boss loot container like a science, military, industrial, creature, etc. Please note this is a container object not a traditional marker.
-
-#### REOverlayContainerNatureCreature (REContainerLocRef)
-
-A usable marker for where a poop pile could spawn. Please note this is a container object not a traditional marker.
-
-#### REOverlayContainerNatureBarren (REContainerLocRef)
-
-A usable marker for where a rock pile could spawn. Please note this is a container object not a traditional marker.
+#### SMMarker_Container_Pile (REContainerLocRef)
 
 ### Clutter
 
-These control markers for spawning random clutter objects usually packings
+These control markers for spawning random clutter objects usually packins
 
 #### Sizing
 

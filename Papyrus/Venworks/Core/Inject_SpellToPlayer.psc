@@ -3,6 +3,14 @@ ScriptName Venworks:Core:Inject_SpellToPlayer extends Venworks:Core:Base:BaseQue
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
+;;; Imports
+;;;
+Import Venworks:Core:Enumerations
+Import Venworks:Core:Logging
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
 ;;; Global Variables
 ;;;
 GlobalVariable Property Venworks_DebugEnabled Auto Const Mandatory

@@ -1,0 +1,9 @@
+FormKey: 000913:Venworks-Core.esm
+MajorRecordFlagsRaw: 64
+EditorID: SMLocationType_Any
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x40
+Data: 0
+MajorFlags:
+- Constant

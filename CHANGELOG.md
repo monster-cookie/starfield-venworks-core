@@ -4,6 +4,9 @@
 
 - Added new Radiant Engine themes for small, medium, and large manmade clutter packins.
 - Radiant Engine is too problematic so pulling in the unreleased SceneManager I wrote for QOG. This will function as a bridge between the cells and Radiant Engine triggers/markers.
+- Added my normal debug arrow to help finding PCM models
+- Added EnableDisableToggleOnLoad to allow for enabling/disabling an object based on a global variable
+- Added several randomization condition forms that disable on debug mode being enabled
 
 ## Version 2.0.0
 

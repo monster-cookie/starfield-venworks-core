@@ -1,0 +1,9 @@
+FormKey: 00097D:Venworks-Core.esm
+MajorRecordFlagsRaw: 64
+EditorID: Venworks_Chance_Medium
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x40
+Data: 45
+MajorFlags:
+- Constant

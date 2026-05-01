@@ -1,5 +1,14 @@
 ScriptName Venworks:Core:SceneManager:SMTriggerOverlay Extends Venworks:Core:Base:BaseObjectReference
-{ This is attached to the SMTriggerOverlay* activators and is used to trigger a call to Story Manger when the engine or player is ready. }
+{ 
+  This is attached to the SMTriggerOverlay* activators and is used to trigger a call to Story Manger when the engine or player is ready.
+
+  Story Manager Data will be:
+    Location: Location of this activator
+    Ref1: This activator
+    Ref2: Currently not used
+    Int1: The Location Subtype
+    Int2: The Event Subtype
+}
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -36,11 +45,41 @@ Group StoryMangerConfiguration
   Keyword Property StoryEventKeyword Auto Const Mandatory
 	{The Keyword you want to call SendStoryEvent for.}
 
-  Int Property MyLocationID Auto Hidden
-	{An integer associated with trigger location, potentially will be used for location type (urban, rural, coastal, road, etc). Sent as the StoryMangerEvent.aiValue1.}
+  GlobalVariable Property LocationType Auto Const Mandatory
+	{
+    An integer associated with trigger location, potentially will be used for location type (urban, rural, coastal, road, etc). 
+    
+    Sent as the StoryMangerEvent.aiValue1. 
+    
+    See Global Variables Below for correct values
 
-	int Property EventNum = -1 Auto
-	{This controls which specific event you want to start. Sent as the StoryMangerEvent.aiValue2.}
+    SMLocationType_Disabled (-1) = Don't Send a Subtype
+    SMLocationType_Any      (0)  = Any Subtype
+
+    Currently Not Really Used
+  }
+
+	GlobalVariable Property EventSubType Auto Const Mandatory
+	{
+    This controls which specific event you want to start. 
+    
+    Sent as the StoryMangerEvent.aiValue2. 
+    
+    See Global Variables below for the correct values 
+
+    SMEventType_Disabled (-1) = Don't Send a Subtype
+    SMEventType_Any      (0)  = Any Subtype
+
+    For Man Made Clutter Packins:
+    SMEventType_Clutter_Small  (1) = Small Clutter
+    SMEventType_Clutter_Medium (2) = Medium Clutter
+    SMEventType_Clutter_Large  (3) = Large Clutter
+
+    For Caves
+    SMEventType_Cave_Small  (4) = Small Cave
+    SMEventType_Cave_Medium (5) = Medium Cave
+    SMEventType_Cave_Large  (6) = Large Cave
+  }
 EndGroup
 
 
@@ -78,9 +117,14 @@ EndEvent
 ;;; Functions
 ;;;
 Function StartEncounter()
-	LogModuleInformational(functionName="StartEncounter", logMessage="Calling SendStoryEvent() keyword: " + StoryEventKeyword + ", akLoc: " + GetCurrentLocation() + ", akRef1: " + self + ", akRef2: " + None + ", aiValue1: " + MyLocationID + ", aiValue2: " + EventNum)
+  Location akLoc = GetCurrentLocation()
+  ObjectReference akRef1 = self
+  ObjectReference akRef2 = None
+  Int iEventNum = EventSubType.GetValueInt()
+  Int iLocationType = LocationType.GetValueInt()
 
-	Quest[] startedQuests = StoryEventKeyword.SendStoryEventAndWait(GetCurrentLocation(), self, None, MyLocationID, EventNum)
+	LogModuleInformational(functionName="StartEncounter", logMessage="Calling SendStoryEvent() keyword: " + StoryEventKeyword + ", akLoc: " + akLoc + ", akRef1: " + akRef1 + ", akRef2: " + akRef2 + ", aiValue1: " + iLocationType + ", aiValue2: " + iEventNum)
+	Quest[] startedQuests = StoryEventKeyword.SendStoryEventAndWait(akLoc=akLoc, akRef1=akRef1, akRef2=akRef2, aiValue1=iLocationType, aiValue2=iEventNum)
 	if (startedQuests.Length == 0 )
 	  LogModuleWarning(functionName="StartEncounter", logMessage="Called SendStoryEvent() and started no radiant quests.")
   Else

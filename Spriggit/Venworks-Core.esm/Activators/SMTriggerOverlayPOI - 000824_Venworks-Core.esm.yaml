@@ -14,6 +14,9 @@ VirtualMachineAdapter:
     - MutagenObjectType: ScriptObjectProperty
       Name: Venworks_DebugEnabled
       Object: 000814:Venworks-Core.esm
+ObjectBounds:
+  First: -1, -1, -1
+  Second: 1, 1, 1
 Model:
   LightLayer: 1
 ForcedLocations:

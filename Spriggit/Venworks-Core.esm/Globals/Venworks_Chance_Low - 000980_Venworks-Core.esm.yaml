@@ -1,0 +1,9 @@
+FormKey: 000980:Venworks-Core.esm
+MajorRecordFlagsRaw: 64
+EditorID: Venworks_Chance_Low
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x40
+Data: 25
+MajorFlags:
+- Constant

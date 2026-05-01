@@ -1,0 +1,20 @@
+FormKey: 000902:Venworks-Core.esm
+MajorRecordFlagsRaw: 8388608
+EditorID: SMMarker_Container_Pile
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x800000
+ObjectBounds:
+  First: -1.4495116, -1.7510121, -0.7858646
+  Second: 1.7079892, 1.452107, 1.3126315
+Components:
+- MutagenObjectType: KeywordFormComponent
+ForcedLocations:
+- 226AF6:Starfield.esm
+Model:
+  File: Landscape\Containers\Loot_Storage_CreaturePile02.nif
+  LightLayer: 1
+MaxAngle: 1
+UnknownDNAMFloat: 1
+DNAMDataTypeState:
+- Break0

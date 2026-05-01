@@ -1,0 +1,9 @@
+FormKey: 000914:Venworks-Core.esm
+MajorRecordFlagsRaw: 64
+EditorID: SMEventType_Disabled
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x40
+Data: -1
+MajorFlags:
+- Constant
