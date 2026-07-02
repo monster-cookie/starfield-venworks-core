@@ -6,18 +6,23 @@
 	],
 	"settings": {
 		"cSpell.words": [
+			"ARCHIVER",
 			"Freestar",
 			"Havok",
+			"ignorecwd",
 			"Injestible",
 			"packins",
+			"Pathing",
 			"Ryujin",
 			"SFCK",
 			"Smartdoc",
+			"Spriggit",
 			"Starborn",
 			"Va'ruun",
 			"Varuun",
 			"Venworks",
-			"VWKS"
+			"VWKS",
+			"xtexconv"
 		]
 	}
 }

@@ -2,7 +2,7 @@
 
 ## Version 2.0.2
 
-- Moving Scene Manager stuff to my new Dynamic Scenes Engine creation.
+- Moving Scene Manager stuff to my new Dynamic Scenes Engine creation/framework.
 - Pulling in my shared functions from encounters overhaul.
 
 ## Version 2.0.1
