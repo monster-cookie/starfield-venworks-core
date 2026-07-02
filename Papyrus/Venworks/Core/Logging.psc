@@ -13,38 +13,52 @@ Import Venworks:Core:Enumerations
 ;;; Functions
 ;;;
 
-Function LogSystem(string creationName, string moduleName, string functionName, string logMessage, int severity) Global DebugOnly
+Int Function GetBGSSeverity(int severity) Global
   LogSeverity severityTable = new LogSeverity;
-
   If (severity == severityTable.Critical)
-    Debug.Trace(asTextToPrint=creationName + ">> [CRITICAL] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+      Return severityTable.Error ;; This is intentional as BGS doesn't support Critical
   ElseIf (severity == severityTable.Error)
-    Debug.Trace(asTextToPrint=creationName + ">>    [ERROR] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+      Return severityTable.Error
   ElseIf (severity == severityTable.Warning)
-    Debug.Trace(asTextToPrint=creationName + ">>  [WARNING] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
-  ElseIf (severity == severityTable.Info)
-    Debug.Trace(asTextToPrint=creationName + ">>     [info] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+      Return severityTable.Warning
+  ElseIf (severity == severityTable.Verbose)
+      Return severityTable.Info ;; This is intentional as BGS doesn't support Verbose
   Else
-    Debug.Trace(asTextToPrint=creationName + ">>    [debug] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+      Return severityTable.Info
   EndIf
 EndFunction
 
-Function LogUser(string creationName, string moduleName, string functionName, string logMessage, int severity) Global DebugOnly
+String Function GetFormattedMessage(string creationName, string moduleName, string functionName, string logMessage, int severity) Global
   LogSeverity severityTable = new LogSeverity;
-
-  if Debug.OpenUserLog(asLogName=creationName)
-    Debug.TraceUser(asUserLog=creationName, asTextToPrint="\n\n[[--------------------------------------------------------------------------------]]\n" + creationName + " LOG\n[[--------------------------------------------------------------------------------]]\n\n", aiSeverity=severityTable.Info)
-  endif
-
+  String severityMessage=""
   If (severity == severityTable.Critical)
-    Debug.TraceUser(asUserLog=creationName, asTextToPrint="[CRITICAL] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+    severityMessage += " [Critical]";
   ElseIf (severity == severityTable.Error)
-    Debug.TraceUser(asUserLog=creationName, asTextToPrint="   [ERROR] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+    severityMessage += " [   Error]";
   ElseIf (severity == severityTable.Warning)
-    Debug.TraceUser(asUserLog=creationName, asTextToPrint=" [WARNING] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
-  ElseIf (severity == severityTable.Info)
-    Debug.TraceUser(asUserLog=creationName, asTextToPrint="    [info] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+    severityMessage += " [ Warning]";
+  ElseIf (severity == severityTable.Verbose)
+    severityMessage += " [ Verbose]";
   Else
-    Debug.TraceUser(asUserLog=creationName, asTextToPrint="   [debug] <" + moduleName + "> (" + functionName + "): " + logMessage, aiSeverity=severity)
+    severityMessage += " [    Info]";
+  EndIf
+
+  return ">> " + severityMessage + " {" + creationName + "} <" + moduleName + "> (" + functionName + "): " + logMessage
+EndFunction
+
+Function LogSystem(string creationName, string moduleName, string functionName, string logMessage, int severity) Global DebugOnly
+  Int bgsSeverity = GetBGSSeverity(severity)
+  String finalMessageFormat=GetFormattedMessage(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severity)
+  Debug.Trace(asTextToPrint=finalMessageFormat, aiSeverity=bgsSeverity)
+EndFunction
+
+Function LogUser(string creationName, string moduleName, string functionName, string logMessage, int severity) Global DebugOnly
+  ;; All users messages should also go to the papyrus log for consistency
+  LogSystem(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severity)
+
+  If (!Debug.OpenUserLog("Venworks"))
+    Int bgsSeverity = GetBGSSeverity(severity)
+    String finalMessageFormat=GetFormattedMessage(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severity)
+    Debug.TraceUser(asUserLog="Venworks", asTextToPrint=finalMessageFormat, aiSeverity=bgsSeverity)
   EndIf
 EndFunction

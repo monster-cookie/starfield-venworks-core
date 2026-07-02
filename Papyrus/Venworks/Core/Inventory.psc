@@ -29,7 +29,8 @@ Int Function GetItemType(Form baseObject)
   ElseIf baseObject is Potion
     Return inventoryItemTypes.ItemTypeInjestible
   Else
-    LogUserInformational(creationName="Venworks-Core", moduleName="Inventory", functionName="GetItemType", logMessage="Unknown base object type found for base object " + baseObject + ".")
+    LogSeverity severityTable = new LogSeverity
+    LogUser(creationName="Venworks-Core", moduleName="Inventory", functionName="GetItemType", logMessage="Unknown base object type found for base object " + baseObject + ".", severity=severityTable.Error)
     Return inventoryItemTypes.ItemTypeUnknown
   EndIf
 EndFunction

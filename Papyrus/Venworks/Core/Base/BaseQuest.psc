@@ -1,5 +1,9 @@
-ScriptName Venworks:Core:Base:BaseQuest Extends Quest
-{ Shared base class that all Venworks Quest classes derive from. This injects some shared functions, constants, etc }
+ScriptName Venworks:Core:Base:BaseQuest Extends Quest Hidden
+{ 
+  Shared base class that all Venworks Quest classes derive from.  
+  
+  This injects some shared functions, constants, etc 
+}
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -8,6 +12,8 @@ ScriptName Venworks:Core:Base:BaseQuest Extends Quest
 ;;;
 Import Venworks:Core:Enumerations
 Import Venworks:Core:Logging
+
+Import Venworks:Core:GlobalConfig
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -39,24 +45,24 @@ EndFunction
 ;;;
 ;;; Functions - Logging (System)
 ;;;
-Function LogSystemInformational(String creationName, String moduleName, String functionName, String logMessage)
+Function LogSystemInformational(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogSystem(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Info)
+  LogSystem(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Info)
 EndFunction
 
-Function LogSystemWarning(String creationName, String moduleName, String functionName, String logMessage)
+Function LogSystemWarning(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogSystem(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Warning)
+  LogSystem(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Warning)
 EndFunction
 
-Function LogSystemError(String creationName, String moduleName, String functionName, String logMessage)
+Function LogSystemError(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogSystem(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Error)
+  LogSystem(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Error)
 EndFunction
 
-Function LogSystemCritical(String creationName, String moduleName, String functionName, String logMessage)
+Function LogSystemCritical(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogSystem(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Critical)
+  LogSystem(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Critical)
 EndFunction
 
 
@@ -64,22 +70,22 @@ EndFunction
 ;;;
 ;;; Functions - Logging (User)
 ;;;
-Function LogUserInformational(String creationName, String moduleName, String functionName, String logMessage)
+Function LogUserInformational(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogUser(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Info)
+  LogUser(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Info)
 EndFunction
 
-Function LogUserWarning(String creationName, String moduleName, String functionName, String logMessage)
+Function LogUserWarning(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogUser(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Warning)
+  LogUser(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Warning)
 EndFunction
 
-Function LogUserError(String creationName, String moduleName, String functionName, String logMessage)
+Function LogUserError(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogUser(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Error)
+  LogUser(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Error)
 EndFunction
 
-Function LogUserCritical(String creationName, String moduleName, String functionName, String logMessage)
+Function LogUserCritical(String moduleName, String functionName, String logMessage)
   LogSeverity severityTable = new LogSeverity;
-  LogUser(creationName=creationName, moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Critical)
+  LogUser(creationName=GetCreationName(), moduleName=moduleName, functionName=functionName, logMessage=logMessage, severity=severityTable.Critical)
 EndFunction

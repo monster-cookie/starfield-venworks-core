@@ -1,4 +1,4 @@
-ScriptName Venworks:Core:Utilities:Game Extends ScriptObject hidden
+ScriptName Venworks:Core:Utilities:Game Extends ScriptObject Hidden
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

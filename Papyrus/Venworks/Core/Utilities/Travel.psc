@@ -1,4 +1,4 @@
-ScriptName Venworks:Core:Utilities:Travel
+ScriptName Venworks:Core:Utilities:Travel Extends ScriptObject Hidden
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;

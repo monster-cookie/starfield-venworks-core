@@ -1,6 +1,6 @@
-ScriptName Venworks:Core:Base:BaseObjectReference Extends ObjectReference Hidden
+ScriptName Venworks:Core:Base:BaseActiveMagicEffect Extends ActiveMagicEffect Hidden
 { 
-  Shared base class that all Venworks ObjectReference classes derive from.
+  Shared base class that all Venworks ActiveMagicEffect classes derive from.
   
   This injects some shared functions, constants, etc.
 }
@@ -14,18 +14,6 @@ Import Venworks:Core:Enumerations
 Import Venworks:Core:Logging
 
 Import Venworks:Core:GlobalConfig
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; Functions - Helper (Spawning)
-;;;
-Function HelperSpawnObject(ObjectReference marker, FormList possibleObjects)
-  Form objectToSpawn = possibleObjects.GetAt(Utility.RandomInt(0, possibleObjects.GetSize()-1))
-  ObjectReference spawnedObjectRef = marker.PlaceAtMe(objectToSpawn)
-  spawnedObjectRef.SetPosition(marker.GetPositionX(), marker.GetPositionY(), marker.GetPositionZ())
-  spawnedObjectRef.SetAngle(0, 0, marker.GetAngleZ())
-EndFunction
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,5 +1,10 @@
 # Venworks Core Utilities and Shared Objects
 
+## Version 2.0.2
+
+- Moving Scene Manager stuff to my new Dynamic Scenes Engine creation.
+- Pulling in my shared functions from encounters overhaul.
+
 ## Version 2.0.1
 
 - Added new Radiant Engine themes for small, medium, and large manmade clutter packins.

@@ -1,4 +1,4 @@
-ScriptName Venworks:Core:Utilities:Scaling Extends ScriptObject hidden
+ScriptName Venworks:Core:Utilities:Scaling Extends ScriptObject Hidden
 
 Import Venworks:Core:Utilities:Game
 

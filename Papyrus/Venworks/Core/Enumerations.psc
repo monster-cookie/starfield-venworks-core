@@ -1,6 +1,11 @@
 ScriptName Venworks:Core:Enumerations Extends ScriptObject hidden
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;; Structs
+;;;
+
 Struct Aggression
   Int Unaggressive=0
   Int Aggressive=1
@@ -74,11 +79,11 @@ Struct LevelModifier
 EndStruct
 
 Struct LogSeverity
-  Int Verbose  = -1
-  Int Info     = 0
-  Int Warning  = 1
-  Int Error    = 2
-  Int Critical = 3
+  Int Verbose  = -1 ;; BGS Severity Info
+  Int Info     = 0  ;; BGS Severity Info
+  Int Warning  = 1  ;; BGS Severity Warning
+  Int Error    = 2  ;; BGS Severity Error
+  Int Critical = 3  ;; BGS Severity Error
 EndStruct
 
 Struct Suspicious
