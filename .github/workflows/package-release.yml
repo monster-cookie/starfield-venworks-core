@@ -1,0 +1,225 @@
+name: Package Release
+
+on:
+    push:
+        tags:
+            - "v*.*.*"
+
+permissions:
+    contents: write
+
+jobs:
+    validate-tag-source:
+        name: Validate Tag Source
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.validate.outputs.version }}
+
+        steps:
+            - name: Verify tag and master HEAD
+              id: validate
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  TAG_CREATED: ${{ github.event.created }}
+                  TAG_NAME: ${{ github.ref_name }}
+                  TAG_SHA: ${{ github.sha }}
+              run: |
+                  if [ "$TAG_CREATED" != "true" ]; then
+                    echo "Release tag '$TAG_NAME' was updated instead of newly created."
+                    exit 1
+                  fi
+
+                  if [[ ! "$TAG_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                    echo "Release tag '$TAG_NAME' must use the v<major>.<minor>.<patch> format."
+                    exit 1
+                  fi
+
+                  MASTER_SHA="$(gh api "repos/${{ github.repository }}/commits/master" --jq '.sha')"
+
+                  if [ "$TAG_SHA" != "$MASTER_SHA" ]; then
+                    echo "Tag is not on the current master HEAD."
+                    echo "Tag SHA:    $TAG_SHA"
+                    echo "Master SHA: $MASTER_SHA"
+                    exit 1
+                  fi
+
+                  echo "version=${TAG_NAME#v}" >> "$GITHUB_OUTPUT"
+
+    package-release:
+        name: Package Release
+        needs: validate-tag-source
+        runs-on: ubuntu-latest
+        env:
+            PACKAGE_VERSION: ${{ needs.validate-tag-source.outputs.version }}
+
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v6
+              with:
+                  lfs: true
+
+            - name: Prepare release package
+              id: package
+              shell: pwsh
+              run: |
+                  $ErrorActionPreference = 'Stop'
+
+                  $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts/release'
+                  $packageRoot = Join-Path $releaseRoot 'package'
+                  New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
+
+                  $esmPath = Join-Path $env:GITHUB_WORKSPACE 'Staging/Venworks-Core.esm'
+                  if (-not [System.IO.File]::Exists($esmPath)) {
+                      throw "Required release file '$esmPath' was not found."
+                  }
+
+                  $ba2Files = Get-ChildItem -Path (Join-Path $env:GITHUB_WORKSPACE 'Staging') -Filter '*.ba2' -File
+                  if (-not $ba2Files) {
+                      throw "No BA2 archives were found in Staging."
+                  }
+
+                  Copy-Item -LiteralPath $esmPath -Destination $packageRoot
+                  foreach ($ba2File in $ba2Files) {
+                      Copy-Item -LiteralPath $ba2File.FullName -Destination $packageRoot
+                  }
+
+                  $packagePath = Join-Path $releaseRoot "Venworks-Core-$env:PACKAGE_VERSION.zip"
+                  Compress-Archive -Path (Join-Path $packageRoot '*') -DestinationPath $packagePath -Force
+
+                  "package_path=$packagePath" >> $env:GITHUB_OUTPUT
+
+            - name: Upload release package artifact
+              uses: actions/upload-artifact@v6
+              with:
+                  name: Venworks-Core-${{ env.PACKAGE_VERSION }}
+                  path: ${{ steps.package.outputs.package_path }}
+
+    create-release:
+        name: Create GitHub and Nexus Releases
+        needs:
+            - validate-tag-source
+            - package-release
+        runs-on: ubuntu-latest
+        env:
+            PACKAGE_VERSION: ${{ needs.validate-tag-source.outputs.version }}
+
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v6
+
+            - name: Download release package artifact
+              uses: actions/download-artifact@v6
+              with:
+                  name: Venworks-Core-${{ env.PACKAGE_VERSION }}
+                  path: ./artifacts/release
+
+            - name: Extract release notes
+              id: release-notes
+              shell: pwsh
+              run: |
+                  $ErrorActionPreference = 'Stop'
+
+                  $version = $env:PACKAGE_VERSION
+                  $changeLogPath = Join-Path $env:GITHUB_WORKSPACE 'CHANGELOG.md'
+                  $releaseNotesPath = Join-Path $env:GITHUB_WORKSPACE 'artifacts/release/release-notes.md'
+                  $nexusDescriptionPath = Join-Path $env:GITHUB_WORKSPACE 'artifacts/release/nexus-description.bbcode'
+
+                  $content = Get-Content -LiteralPath $changeLogPath -Raw
+                  $escapedVersion = [Regex]::Escape($version)
+                  $pattern = "(?ms)^## Version $escapedVersion\s*.*?(?=^## Version \d+\.\d+\.\d+|\z)"
+                  $match = [Regex]::Match($content, $pattern)
+
+                  if (-not $match.Success) {
+                      throw "Unable to find release notes in CHANGELOG.md for version $version."
+                  }
+
+                  $releaseNotes = $match.Value.Trim()
+                  [System.IO.File]::WriteAllText($releaseNotesPath, $releaseNotes)
+
+                  $lines = $releaseNotes -split "\r?\n"
+                  $bbcodeLines = [System.Collections.Generic.List[string]]::new()
+                  $inList = $false
+
+                  foreach ($line in $lines) {
+                      if ($line -match '^\s*-\s+(.*)$') {
+                          if (-not $inList) {
+                              $bbcodeLines.Add('[list]')
+                              $inList = $true
+                          }
+
+                          $bbcodeLines.Add("[*]$($Matches[1])")
+                          continue
+                      }
+
+                      if ($inList) {
+                          $bbcodeLines.Add('[/list]')
+                          $inList = $false
+                      }
+
+                      if ($line -match '^##\s+(.+)$') {
+                          $bbcodeLines.Add("[b]$($Matches[1])[/b]")
+                          continue
+                      }
+
+                      if ($line -match '^###\s+(.+)$') {
+                          $bbcodeLines.Add("[b]$($Matches[1])[/b]")
+                          continue
+                      }
+
+                      $convertedLine = $line -replace '\*\*(.+?)\*\*', '[b]$1[/b]'
+                      $convertedLine = $convertedLine -replace '\*(.+?)\*', '[i]$1[/i]'
+                      $convertedLine = $convertedLine -replace '`(.+?)`', '$1'
+                      $bbcodeLines.Add($convertedLine)
+                  }
+
+                  if ($inList) {
+                      $bbcodeLines.Add('[/list]')
+                  }
+
+                  $nexusDescription = ($bbcodeLines -join [Environment]::NewLine).Trim()
+                  [System.IO.File]::WriteAllText($nexusDescriptionPath, $nexusDescription)
+
+                  "release_notes_path=$releaseNotesPath" >> $env:GITHUB_OUTPUT
+                  "nexus_description_path=$nexusDescriptionPath" >> $env:GITHUB_OUTPUT
+                  $delimiter = [Guid]::NewGuid().ToString()
+                  "nexus_description<<$delimiter" >> $env:GITHUB_OUTPUT
+                  $nexusDescription >> $env:GITHUB_OUTPUT
+                  $delimiter >> $env:GITHUB_OUTPUT
+
+            - name: Resolve release package
+              id: release-package
+              shell: pwsh
+              run: |
+                  $ErrorActionPreference = 'Stop'
+
+                  $packagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  if (-not $packagePath) {
+                      throw "Unable to find release package for version $env:PACKAGE_VERSION."
+                  }
+
+                  "path=$packagePath" >> $env:GITHUB_OUTPUT
+
+            - name: Create GitHub release
+              shell: bash
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  gh release create "${{ github.ref_name }}" \
+                    "${{ steps.release-package.outputs.path }}" \
+                    --title "${{ github.ref_name }}" \
+                    --notes-file "${{ steps.release-notes.outputs.release_notes_path }}"
+
+            - name: Upload release to Nexus Mods
+              uses: Nexus-Mods/upload-action@v1.0.0-beta.8
+              with:
+                  api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+                  file_id: ${{ secrets.NEXUSMODS_FILE_ID }}
+                  filename: ${{ steps.release-package.outputs.path }}
+                  version: ${{ env.PACKAGE_VERSION }}
+                  category: main
+                  display_name: Venworks - Core
+                  archive_existing_version: 'true'
+                  primary_mod_manager_download: 'true'
+                  allow_mod_manager_download: 'true'
+                  description: ${{ steps.release-notes.outputs.nexus_description }}
