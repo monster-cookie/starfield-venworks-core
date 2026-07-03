@@ -8,24 +8,16 @@ if (!$Global:SharedConfigurationLoaded) {
   . "$PSScriptRoot/sharedConfig.ps1"
 }
 
-# Scaffold Source Pathing if needed
-If ([System.IO.Directory]::Exists(".\Dist")) {
-  Remove-Item -Force -Recurse -Path ".\Dist" | Out-Null
-}
-If (![System.IO.Directory]::Exists(".\Dist")) {
-  New-Item -ItemType "Directory" -Path ".\Dist" | Out-Null
-}
-
 # Creating the Windows Archives and placing then in the Dist folder
-& "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Main.ba2" -format="General" -compression="Default" -maxSizeMB=2048 -excludeFilters=".*\\meta\.ini|.*\\.*\.dds|.*\\.*\.btc|.*\\.*\.esp"
+& "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Main.ba2" -format="General" -compression="Default" -maxSizeMB=2048 -excludeFilters=".*\\meta\.ini|.*\\.*\.dds|.*\\.*\.btc|.*\\.*\.esp|.*\\.*\.esm"
 & "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Textures.ba2" -format="DDS" -compression="Default" -maxSizeMB=2048 -includeFilters=".*\\.*\.dds"
 
 # Creating the XBox Archives and placing then in the Dist folder
-& "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Main_XBox.ba2" -format="General" -compression="XBox" -maxSizeMB=2048 -excludeFilters=".*\\meta\.ini|.*\\.*\.dds|.*\\.*\.btc|.*\\.*\.esp"
+& "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Main_XBox.ba2" -format="General" -compression="XBox" -maxSizeMB=2048 -excludeFilters=".*\\meta\.ini|.*\\.*\.dds|.*\\.*\.btc|.*\\.*\.esp|.*\\.*\.esm"
 & "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Textures_XBox.ba2" -format="XBoxDDS" -compression="XBox" -maxSizeMB=2048 -includeFilters=".*\\.*\.dds"
 
 # Creating the PS Archives and placing then in the Dist folder (Currently Archiver2 has not been updated for PS support)
-# & "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Main_PS.ba2" -format="General" -compression="PS" -maxSizeMB=2048 -excludeFilters=".*\\meta\.ini|.*\\.*\.dds|.*\\.*\.btc|.*\\.*\.esp"
+# & "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Main_PS.ba2" -format="General" -compression="PS" -maxSizeMB=2048 -excludeFilters=".*\\meta\.ini|.*\\.*\.dds|.*\\.*\.btc|.*\\.*\.esp|.*\\.*\.esm"
 # & "$ENV:TOOL_PATH_ARCHIVER\Archive2.exe" ".\Staging\" -root="$PWD\Staging\" -create="$ENV:MODULE_DATABASE_PATH\$Global:ScriptingNamespaceModuleCompany-$Global:ScriptingNamespaceModuleName - Textures_PS.ba2" -format="XBoxDDS" -compression="PS" -maxSizeMB=2048 -includeFilters=".*\\.*\.dds"
 
 Write-Host -ForegroundColor Cyan "`n`n"
