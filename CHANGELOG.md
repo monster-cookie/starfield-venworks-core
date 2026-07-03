@@ -1,6 +1,6 @@
 # Venworks Core Utilities and Shared Objects
 
-## Unreleased
+## Version 2.1.0
 
 - Moving Scene Manager stuff to my new Dynamic Scenes Engine creation/framework.
 - Pulling in my shared functions from encounters overhaul.
