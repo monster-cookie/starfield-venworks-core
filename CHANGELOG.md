@@ -1,9 +1,16 @@
 # Venworks Core Utilities and Shared Objects
 
-## Version 2.0.2
+## Unreleased
 
 - Moving Scene Manager stuff to my new Dynamic Scenes Engine creation/framework.
 - Pulling in my shared functions from encounters overhaul.
+- Added Game Play Options handler for Core Debug mode.
+- Added a shared script handler for game play options any other consuming library should be able to use.
+- Added chance globals and condition forms
+
+### Breaking Change
+
+- SFCK for some lame reason generated a Form ID well out of the small master range when it had 4077 free small master IDs left. Unfortunately the only way I could find to fix this was to compact IDs. xEdit would let me change the offending ID but then refused to save it. TLDR: This compaction voids this version against any current save games with out a unity trip or new game. Nothing is really using 2.x currently so I'm not really worried about this but am being transparent.
 
 ## Version 2.0.1
 
