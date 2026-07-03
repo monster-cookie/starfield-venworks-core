@@ -1,0 +1,10 @@
+FormKey: 000996:sfbgs007.esm
+EditorID: GPO_VWKS
+FormVersion: 582
+Name:
+  TargetLanguage: English
+  Value: Venworks Core Options
+Options:
+  MutagenObjectType: GameplayOptionsGroupLeaf
+  GameplayOptions:
+  - 000997:sfbgs007.esm

@@ -1,4 +1,4 @@
-FormKey: 00082C:Venworks-Core.esm
+FormKey: 000048:sfbgs007.esm
 EditorID: VWKS_PlayerLevelHandlerNode
 FormVersion: 582
 Parent: 16556F:Starfield.esm
@@ -7,4 +7,4 @@ QuestFlags:
 - SharesEvent
 MaxConcurrentQuests: 0
 Quests:
-- Quest: 000823:Venworks-Core.esm
+- Quest: 000023:sfbgs007.esm

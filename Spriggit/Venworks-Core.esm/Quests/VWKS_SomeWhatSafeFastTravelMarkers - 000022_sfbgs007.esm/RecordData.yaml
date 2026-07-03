@@ -1,4 +1,4 @@
-FormKey: 000815:Venworks-Core.esm
+FormKey: 000022:sfbgs007.esm
 EditorID: VWKS_SomeWhatSafeFastTravelMarkers
 FormVersion: 582
 Name:
@@ -9,7 +9,7 @@ Data:
   - StartGameEnabled
   - AllowRepeatedStages
   - StartsEnabled
-  Unused: 0x7F0000
+  Unused: 0x000000
 UnusedConditions: []
 Aliases:
 - MutagenObjectType: QuestCollectionAlias
@@ -37,7 +37,7 @@ Aliases:
         Unknown2: 16615
         Data:
           MutagenObjectType: IsInListConditionData
-          FirstParameter: 00081F:Venworks-Core.esm
+          FirstParameter: 000025:sfbgs007.esm
       - MutagenObjectType: ConditionFloat
         Flags:
         - OR

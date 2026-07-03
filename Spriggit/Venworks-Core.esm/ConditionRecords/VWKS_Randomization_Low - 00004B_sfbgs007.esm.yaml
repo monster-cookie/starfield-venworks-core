@@ -1,0 +1,20 @@
+FormKey: 00004B:sfbgs007.esm
+EditorID: VWKS_Randomization_Low
+FormVersion: 582
+Conditions:
+- MutagenObjectType: ConditionFloat
+  Flags:
+  - OR
+  Unknown2: 79
+  Data:
+    MutagenObjectType: GetGlobalValueConditionData
+    FirstParameter: 000021:sfbgs007.esm
+  ComparisonValue: 1
+- MutagenObjectType: ConditionGlobal
+  CompareOperator: LessThanOrEqualTo
+  Flags:
+  - OR
+  Unknown2: 79
+  Data:
+    MutagenObjectType: GetRandomPercentConditionData
+  ComparisonValue: 000019:sfbgs007.esm

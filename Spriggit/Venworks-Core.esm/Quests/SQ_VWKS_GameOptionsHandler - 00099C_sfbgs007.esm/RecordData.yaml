@@ -1,0 +1,64 @@
+FormKey: 00099C:sfbgs007.esm
+EditorID: SQ_VWKS_GameOptionsHandler
+FormVersion: 582
+VirtualMachineAdapter:
+  Scripts:
+  - Name: Venworks:Core:GPO:SQ_GameOptionsHandler
+    Properties:
+    - MutagenObjectType: ScriptStructListProperty
+      Name: OptionData
+      Structs:
+      - Members:
+        - MutagenObjectType: ScriptObjectProperty
+          Name: Option
+          Object: 000997:sfbgs007.esm
+        - MutagenObjectType: ScriptObjectProperty
+          Name: ValueGlobal
+          Object: 000021:sfbgs007.esm
+    - MutagenObjectType: ScriptObjectProperty
+      Name: PEO_GPO_EnvironmentalDamage
+      Object: 00002C:sfbgs007.esm
+    - MutagenObjectType: ScriptObjectProperty
+      Name: PEO_XP_Mult
+      Object: 000035:sfbgs007.esm
+    - MutagenObjectType: ScriptObjectProperty
+      Name: Player_Alias
+      Object: 00099C:sfbgs007.esm
+      Alias: 0
+  Versioning:
+  - Break0
+  ExtraBindDataVersion: 0
+  Script:
+    Name: ''
+Name:
+  TargetLanguage: English
+  Value: Game Play Options Handler for Venworks Core Library
+Data:
+  Flags:
+  - StartGameEnabled
+  - StartsEnabled
+  - RunOnce
+  Unused: 0x000000
+UnusedConditions: []
+Aliases:
+- MutagenObjectType: QuestReferenceAlias
+  Name: Player
+  Flags: []
+  ALFG: 0
+  UniqueActor: 000007:Starfield.esm
+  VoiceTypes: Null
+- MutagenObjectType: QuestCollectionAlias
+  Collection:
+  - ID: 4
+    ALAM: 0
+    ReferenceAlias:
+      ID: 4
+      Name: AvailableFollowers
+      Flags:
+      - Optional
+      - ExternalAliasLinked
+      ALFG: 0
+      External:
+        Quest: 00D773:Starfield.esm
+        AliasID: 20
+      VoiceTypes: Null

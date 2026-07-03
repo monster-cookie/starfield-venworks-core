@@ -1,0 +1,9 @@
+FormKey: 000012:sfbgs007.esm
+MajorRecordFlagsRaw: 64
+EditorID: VWKS_Chance_Guaranteed
+FormVersion: 582
+StarfieldMajorRecordFlags:
+- 0x40
+Data: 100
+MajorFlags:
+- Constant
