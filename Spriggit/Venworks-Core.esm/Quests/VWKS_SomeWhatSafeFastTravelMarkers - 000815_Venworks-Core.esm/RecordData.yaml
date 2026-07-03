@@ -9,7 +9,7 @@ Data:
   - StartGameEnabled
   - AllowRepeatedStages
   - StartsEnabled
-  Unused: 0x000000
+  Unused: 0x7F0000
 UnusedConditions: []
 Aliases:
 - MutagenObjectType: QuestCollectionAlias

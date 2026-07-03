@@ -1,7 +1,7 @@
 FormKey: 315EE9:Starfield.esm
-IsDeleted: True
-MajorRecordFlagsRaw: 32
 FormVersion: 582
 Version2: 3
-StarfieldMajorRecordFlags:
-- Deleted
+Parent: 16556F:Starfield.esm
+PreviousSibling: 00082C:Venworks-Core.esm
+Flags: []
+MaxConcurrentQuests: 0

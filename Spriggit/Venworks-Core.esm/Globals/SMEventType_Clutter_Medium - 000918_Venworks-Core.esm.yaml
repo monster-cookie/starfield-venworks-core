@@ -1,9 +1,0 @@
-FormKey: 000918:Venworks-Core.esm
-MajorRecordFlagsRaw: 64
-EditorID: SMEventType_Clutter_Medium
-FormVersion: 582
-StarfieldMajorRecordFlags:
-- 0x40
-Data: 2
-MajorFlags:
-- Constant
