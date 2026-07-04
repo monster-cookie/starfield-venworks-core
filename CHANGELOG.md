@@ -1,6 +1,6 @@
 # Venworks Core Utilities and Shared Objects
 
-## Version 2.1.2
+## Version 2.1.3
 
 - I had to recreate the ESP/ESM from scratch. The current esp/esm is corrupted and keeps trying to write out as sfbgs007.esm. I suspect this because I attempted to convert the old pre-SFCK xEdit esm to a esp using the plugin bridge. With xEdit I was able to manually preserve the FormIDs. This should preserve any save games accessing it.
 - Removing the some what safe fast travel stuff for now.

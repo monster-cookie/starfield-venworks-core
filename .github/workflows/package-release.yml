@@ -24,7 +24,7 @@ env:
   CREATION_DISPLAY_NAME: Venworks Core
   CREATION_FILE_NAME: Venworks-Core
   NEXUSMODS_CATEGORY: main
-  UPLOAD_TO_NEXUSMODS: false
+  UPLOAD_TO_NEXUSMODS: true
 
 jobs:
     validate-tag-source:
