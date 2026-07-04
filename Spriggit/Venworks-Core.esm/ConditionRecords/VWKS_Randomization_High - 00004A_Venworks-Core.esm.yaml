@@ -5,7 +5,7 @@ Conditions:
 - MutagenObjectType: ConditionFloat
   Flags:
   - OR
-  Unknown2: 74
+  Unknown2: 66
   Data:
     MutagenObjectType: GetGlobalValueConditionData
     FirstParameter: 000021:Venworks-Core.esm
@@ -14,7 +14,7 @@ Conditions:
   CompareOperator: LessThanOrEqualTo
   Flags:
   - OR
-  Unknown2: 74
+  Unknown2: 66
   Data:
     MutagenObjectType: GetRandomPercentConditionData
   ComparisonValue: 000018:Venworks-Core.esm

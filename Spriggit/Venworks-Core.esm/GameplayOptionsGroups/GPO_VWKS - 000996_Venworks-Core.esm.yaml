@@ -6,3 +6,5 @@ Name:
   Value: Venworks Core Options
 Options:
   MutagenObjectType: GameplayOptionsGroupLeaf
+  GameplayOptions:
+  - 000997:Venworks-Core.esm
