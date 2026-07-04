@@ -1,4 +1,4 @@
-FormKey: 000996:sfbgs007.esm
+FormKey: 000807:Venworks-Core.esm
 EditorID: GPO_VWKS
 FormVersion: 582
 Name:
@@ -6,5 +6,3 @@ Name:
   Value: Venworks Core Options
 Options:
   MutagenObjectType: GameplayOptionsGroupLeaf
-  GameplayOptions:
-  - 000997:sfbgs007.esm

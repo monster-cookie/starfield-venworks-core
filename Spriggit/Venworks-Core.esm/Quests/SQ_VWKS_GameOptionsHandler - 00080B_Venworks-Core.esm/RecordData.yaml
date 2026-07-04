@@ -1,4 +1,4 @@
-FormKey: 00099C:sfbgs007.esm
+FormKey: 00080B:Venworks-Core.esm
 EditorID: SQ_VWKS_GameOptionsHandler
 FormVersion: 582
 VirtualMachineAdapter:
@@ -10,11 +10,11 @@ VirtualMachineAdapter:
       Structs:
       - Members:
         - MutagenObjectType: ScriptObjectProperty
-          Name: Option
-          Object: 000997:sfbgs007.esm
-        - MutagenObjectType: ScriptObjectProperty
           Name: ValueGlobal
-          Object: 000021:sfbgs007.esm
+          Object: 00080A:Venworks-Core.esm
+        - MutagenObjectType: ScriptObjectProperty
+          Name: Option
+          Object: 000808:Venworks-Core.esm
     - MutagenObjectType: ScriptObjectProperty
       Name: PEO_GPO_EnvironmentalDamage
       Object: 00002C:sfbgs007.esm
@@ -23,7 +23,7 @@ VirtualMachineAdapter:
       Object: 000035:sfbgs007.esm
     - MutagenObjectType: ScriptObjectProperty
       Name: Player_Alias
-      Object: 00099C:sfbgs007.esm
+      Object: 00080B:Venworks-Core.esm
       Alias: 0
   Versioning:
   - Break0
@@ -42,23 +42,8 @@ Data:
 UnusedConditions: []
 Aliases:
 - MutagenObjectType: QuestReferenceAlias
-  Name: Player
+  Name: Player_Alias
   Flags: []
   ALFG: 0
   UniqueActor: 000007:Starfield.esm
   VoiceTypes: Null
-- MutagenObjectType: QuestCollectionAlias
-  Collection:
-  - ID: 4
-    ALAM: 0
-    ReferenceAlias:
-      ID: 4
-      Name: AvailableFollowers
-      Flags:
-      - Optional
-      - ExternalAliasLinked
-      ALFG: 0
-      External:
-        Quest: 00D773:Starfield.esm
-        AliasID: 20
-      VoiceTypes: Null

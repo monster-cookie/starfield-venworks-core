@@ -1,5 +1,10 @@
 # Venworks Core Utilities and Shared Objects
 
+## Unreleased
+
+- Having to recreate the ESP/ESM from scratch, the current is corrupted and keeps trying to write out as sfbgs007.esm. I suspect this because I attempted to convert the old pre-SFCK xEdit version. I'm going to try to manually preserve the FormIDs using xEdit but don't have high hopes.
+- Removing the some what safe fast travel stuff for now.
+
 ## Version 2.1.1
 
 - Removed the XBox archives from Nexus Mods' version
