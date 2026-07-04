@@ -1,0 +1,8 @@
+{
+  "KnownMasters": 
+  [
+    {"ModKey": "Starfield.esm", "Style": "Full"},
+    {"ModKey": "sfbgs007.esm", "Style": "Small"},
+    {"ModKey": "sfbgs00d.esm", "Style": "Full"}
+  ]
+}

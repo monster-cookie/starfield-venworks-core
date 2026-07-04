@@ -17,7 +17,7 @@ This repo follows the standard Starfield modding workflow documented in [SFCK Wo
 
 The short version for this repository is that source edits and generated game artifacts must stay together. When changing Papyrus, Spriggit YAML, plugin records, or archive contents, regenerate the corresponding files locally before committing.
 
-Release-specific expectations are documented in [Documentation/ReleasePackaging.md](Documentation/ReleasePackaging.md).
+Release-specific expectations are documented in [Release Packaging(Documentation/ReleasePackaging.md).
 
 ## Local Tooling
 

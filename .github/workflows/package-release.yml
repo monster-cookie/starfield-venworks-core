@@ -8,6 +8,24 @@ on:
 permissions:
     contents: write
 
+###############################################################################
+# CONFIG: Update these for this creation.
+#
+# Using these instead of secrets cause they are not secret and shouldn't be hidden in the logs.
+#
+# That being said some repository secrets are required but only if env.UPLOAD_TO_NEXUSMODS is true:
+#   - NEXUSMODS_API_KEY the API key to use see https://www.nexusmods.com/settings/api-keys use the developer API key at the bottom of the page
+#   - NEXUSMODS_FILE_ID the FILE ID of to replace in the Mod's Files section:
+#       To get a file ID to use in this action, you need to have created a mod page on Nexus Mods and uploaded at least one file. The file ID 
+#       can be found by checking the "API Info" option in the Files tab of the public-facing mod page, or in the edit menu of the Manage Files page.
+#
+###############################################################################
+env:
+  CREATION_DISPLAY_NAME: Venworks Core
+  CREATION_FILE_NAME: Venworks-Core
+  NEXUSMODS_CATEGORY: main
+  UPLOAD_TO_NEXUSMODS: false
+
 jobs:
     validate-tag-source:
         name: Validate Tag Source
@@ -68,7 +86,7 @@ jobs:
                   $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts/release'
                   New-Item -ItemType Directory -Force -Path $releaseRoot | Out-Null
 
-                  $esmPath = Join-Path $env:GITHUB_WORKSPACE 'Staging/Venworks-Core.esm'
+                  $esmPath = Join-Path $env:GITHUB_WORKSPACE "Staging/${{ env.CREATION_FILE_NAME }}.esm"
                   if (-not [System.IO.File]::Exists($esmPath)) {
                       throw "Required release file '$esmPath' was not found."
                   }
@@ -137,24 +155,24 @@ jobs:
 
                   $pcRoot = New-PackageRoot -Name 'pc'
                   Copy-Archives -Files $pcBa2Files -Destination $pcRoot
-                  $pcPackagePath = Join-Path $releaseRoot "Venworks-Core-PC-$env:PACKAGE_VERSION.zip"
+                  $pcPackagePath = Join-Path $releaseRoot "$env:CREATION_FILE_NAME-PC-$env:PACKAGE_VERSION.zip"
                   Compress-Archive -Path (Join-Path $pcRoot '*') -DestinationPath $pcPackagePath -Force
 
                   $xboxRoot = New-PackageRoot -Name 'xbox'
                   Copy-Archives -Files $xboxBa2Files -Destination $xboxRoot
-                  $xboxPackagePath = Join-Path $releaseRoot "Venworks-Core-XBox-$env:PACKAGE_VERSION.zip"
+                  $xboxPackagePath = Join-Path $releaseRoot "$env:CREATION_FILE_NAME-XBox-$env:PACKAGE_VERSION.zip"
                   Compress-Archive -Path (Join-Path $xboxRoot '*') -DestinationPath $xboxPackagePath -Force
 
                   $ps5Root = New-PackageRoot -Name 'ps5'
                   Copy-PlayStationArchives -Files $pcBa2Files -Destination $ps5Root
-                  $ps5PackagePath = Join-Path $releaseRoot "Venworks-Core-PS5-$env:PACKAGE_VERSION.zip"
+                  $ps5PackagePath = Join-Path $releaseRoot "$env:CREATION_FILE_NAME-PS5-$env:PACKAGE_VERSION.zip"
                   Compress-Archive -Path (Join-Path $ps5Root '*') -DestinationPath $ps5PackagePath -Force
 
                   $creationsSiteRoot = New-PackageRoot -Name 'creations-site'
                   Copy-Archives -Files $pcBa2Files -Destination $creationsSiteRoot
                   Copy-Archives -Files $xboxBa2Files -Destination $creationsSiteRoot
                   Copy-PlayStationArchives -Files $pcBa2Files -Destination $creationsSiteRoot
-                  $creationsSitePackagePath = Join-Path $releaseRoot "Venworks-Core-CreationsSite-$env:PACKAGE_VERSION.zip"
+                  $creationsSitePackagePath = Join-Path $releaseRoot "$env:CREATION_FILE_NAME-CreationsSite-$env:PACKAGE_VERSION.zip"
                   Compress-Archive -Path (Join-Path $creationsSiteRoot '*') -DestinationPath $creationsSitePackagePath -Force
 
                   "pc_package_path=$pcPackagePath" >> $env:GITHUB_OUTPUT
@@ -165,7 +183,7 @@ jobs:
             - name: Upload release package artifacts
               uses: actions/upload-artifact@v6
               with:
-                  name: Venworks-Core-${{ env.PACKAGE_VERSION }}
+                  name: ${{ env.CREATION_FILE_NAME }}-${{ env.PACKAGE_VERSION }}
                   path: |
                       ${{ steps.package.outputs.pc_package_path }}
                       ${{ steps.package.outputs.xbox_package_path }}
@@ -188,7 +206,7 @@ jobs:
             - name: Download release package artifact
               uses: actions/download-artifact@v6
               with:
-                  name: Venworks-Core-${{ env.PACKAGE_VERSION }}
+                  name: ${{ env.CREATION_FILE_NAME }}-${{ env.PACKAGE_VERSION }}
                   path: ./artifacts/release
 
             - name: Extract release notes
@@ -270,10 +288,10 @@ jobs:
               run: |
                   $ErrorActionPreference = 'Stop'
 
-                  $pcPackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-PC-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
-                  $xboxPackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-XBox-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
-                  $ps5PackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-PS5-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
-                  $creationsSitePackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-CreationsSite-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $pcPackagePath = Get-ChildItem -Path ./artifacts/release -Filter "$env:CREATION_FILE_NAME-PC-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $xboxPackagePath = Get-ChildItem -Path ./artifacts/release -Filter "$env:CREATION_FILE_NAME-XBox-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $ps5PackagePath = Get-ChildItem -Path ./artifacts/release -Filter "$env:CREATION_FILE_NAME-PS5-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $creationsSitePackagePath = Get-ChildItem -Path ./artifacts/release -Filter "$env:CREATION_FILE_NAME-CreationsSite-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
 
                   if (-not $pcPackagePath) {
                       throw "Unable to find PC release package for version $env:PACKAGE_VERSION."
@@ -309,16 +327,34 @@ jobs:
                     --title "${{ github.ref_name }}" \
                     --notes-file "${{ steps.release-notes.outputs.release_notes_path }}"
 
+            - name: Validate Nexus Mods upload configuration
+              if: ${{ fromJSON(env.UPLOAD_TO_NEXUSMODS) == true }}
+              shell: bash
+              env:
+                  NEXUSMODS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+                  NEXUSMODS_FILE_ID: ${{ secrets.NEXUSMODS_FILE_ID }}
+              run: |
+                  if [ -z "$NEXUSMODS_API_KEY" ]; then
+                    echo "NEXUSMODS_API_KEY is required when UPLOAD_TO_NEXUSMODS is enabled."
+                    exit 1
+                  fi
+
+                  if [ -z "$NEXUSMODS_FILE_ID" ]; then
+                    echo "NEXUSMODS_FILE_ID is required when UPLOAD_TO_NEXUSMODS is enabled."
+                    exit 1
+                  fi
+
             - name: Upload release to Nexus Mods
+              if: ${{ fromJSON(env.UPLOAD_TO_NEXUSMODS) }}
               uses: Nexus-Mods/upload-action@v1.0.0-beta.8
               with:
                   api_key: ${{ secrets.NEXUSMODS_API_KEY }}
                   file_id: ${{ secrets.NEXUSMODS_FILE_ID }}
                   filename: ${{ steps.release-package.outputs.pc_path }}
                   version: ${{ env.PACKAGE_VERSION }}
-                  category: main
-                  display_name: Venworks - Core
-                  archive_existing_version: 'true'
-                  primary_mod_manager_download: 'true'
-                  allow_mod_manager_download: 'true'
+                  category: ${{ env.NEXUSMODS_CATEGORY }}
+                  display_name: ${{ env.CREATION_DISPLAY_NAME }}
+                  archive_existing_version: true
+                  primary_mod_manager_download: true
+                  allow_mod_manager_download: true
                   description: ${{ steps.release-notes.outputs.nexus_description }}
