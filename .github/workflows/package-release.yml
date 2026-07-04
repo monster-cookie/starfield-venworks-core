@@ -59,15 +59,14 @@ jobs:
               with:
                   lfs: true
 
-            - name: Prepare release package
+            - name: Prepare release packages
               id: package
               shell: pwsh
               run: |
                   $ErrorActionPreference = 'Stop'
 
                   $releaseRoot = Join-Path $env:GITHUB_WORKSPACE 'artifacts/release'
-                  $packageRoot = Join-Path $releaseRoot 'package'
-                  New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
+                  New-Item -ItemType Directory -Force -Path $releaseRoot | Out-Null
 
                   $esmPath = Join-Path $env:GITHUB_WORKSPACE 'Staging/Venworks-Core.esm'
                   if (-not [System.IO.File]::Exists($esmPath)) {
@@ -79,21 +78,99 @@ jobs:
                       throw "No BA2 archives were found in Staging."
                   }
 
-                  Copy-Item -LiteralPath $esmPath -Destination $packageRoot
-                  foreach ($ba2File in $ba2Files) {
-                      Copy-Item -LiteralPath $ba2File.FullName -Destination $packageRoot
+                  $pcBa2Files = @($ba2Files | Where-Object {
+                      $_.BaseName -notmatch '_XBox$' -and $_.BaseName -notmatch '_PS$'
+                  })
+                  $xboxBa2Files = @($ba2Files | Where-Object {
+                      $_.BaseName -match '_XBox$'
+                  })
+
+                  if ($pcBa2Files.Count -eq 0) {
+                      throw "No PC BA2 archives were found in Staging."
                   }
 
-                  $packagePath = Join-Path $releaseRoot "Venworks-Core-$env:PACKAGE_VERSION.zip"
-                  Compress-Archive -Path (Join-Path $packageRoot '*') -DestinationPath $packagePath -Force
+                  if ($xboxBa2Files.Count -eq 0) {
+                      throw "No XBox BA2 archives were found in Staging."
+                  }
 
-                  "package_path=$packagePath" >> $env:GITHUB_OUTPUT
+                  function New-PackageRoot {
+                      param(
+                          [Parameter(Mandatory)]
+                          [string] $Name
+                      )
 
-            - name: Upload release package artifact
+                      $path = Join-Path $releaseRoot $Name
+                      New-Item -ItemType Directory -Force -Path $path | Out-Null
+                      Copy-Item -LiteralPath $esmPath -Destination $path
+                      return $path
+                  }
+
+                  function Copy-Archives {
+                      param(
+                          [Parameter(Mandatory)]
+                          [System.IO.FileInfo[]] $Files,
+
+                          [Parameter(Mandatory)]
+                          [string] $Destination
+                      )
+
+                      foreach ($file in $Files) {
+                          Copy-Item -LiteralPath $file.FullName -Destination $Destination
+                      }
+                  }
+
+                  function Copy-PlayStationArchives {
+                      param(
+                          [Parameter(Mandatory)]
+                          [System.IO.FileInfo[]] $Files,
+
+                          [Parameter(Mandatory)]
+                          [string] $Destination
+                      )
+
+                      foreach ($file in $Files) {
+                          $psArchiveName = $file.Name -replace ' - ', '_'
+                          $psArchiveName = $psArchiveName -replace '\.ba2$', '_PS.ba2'
+                          Copy-Item -LiteralPath $file.FullName -Destination (Join-Path $Destination $psArchiveName)
+                      }
+                  }
+
+                  $pcRoot = New-PackageRoot -Name 'pc'
+                  Copy-Archives -Files $pcBa2Files -Destination $pcRoot
+                  $pcPackagePath = Join-Path $releaseRoot "Venworks-Core-PC-$env:PACKAGE_VERSION.zip"
+                  Compress-Archive -Path (Join-Path $pcRoot '*') -DestinationPath $pcPackagePath -Force
+
+                  $xboxRoot = New-PackageRoot -Name 'xbox'
+                  Copy-Archives -Files $xboxBa2Files -Destination $xboxRoot
+                  $xboxPackagePath = Join-Path $releaseRoot "Venworks-Core-XBox-$env:PACKAGE_VERSION.zip"
+                  Compress-Archive -Path (Join-Path $xboxRoot '*') -DestinationPath $xboxPackagePath -Force
+
+                  $ps5Root = New-PackageRoot -Name 'ps5'
+                  Copy-PlayStationArchives -Files $pcBa2Files -Destination $ps5Root
+                  $ps5PackagePath = Join-Path $releaseRoot "Venworks-Core-PS5-$env:PACKAGE_VERSION.zip"
+                  Compress-Archive -Path (Join-Path $ps5Root '*') -DestinationPath $ps5PackagePath -Force
+
+                  $creationsSiteRoot = New-PackageRoot -Name 'creations-site'
+                  Copy-Archives -Files $pcBa2Files -Destination $creationsSiteRoot
+                  Copy-Archives -Files $xboxBa2Files -Destination $creationsSiteRoot
+                  Copy-PlayStationArchives -Files $pcBa2Files -Destination $creationsSiteRoot
+                  $creationsSitePackagePath = Join-Path $releaseRoot "Venworks-Core-CreationsSite-$env:PACKAGE_VERSION.zip"
+                  Compress-Archive -Path (Join-Path $creationsSiteRoot '*') -DestinationPath $creationsSitePackagePath -Force
+
+                  "pc_package_path=$pcPackagePath" >> $env:GITHUB_OUTPUT
+                  "xbox_package_path=$xboxPackagePath" >> $env:GITHUB_OUTPUT
+                  "ps5_package_path=$ps5PackagePath" >> $env:GITHUB_OUTPUT
+                  "creations_site_package_path=$creationsSitePackagePath" >> $env:GITHUB_OUTPUT
+
+            - name: Upload release package artifacts
               uses: actions/upload-artifact@v6
               with:
                   name: Venworks-Core-${{ env.PACKAGE_VERSION }}
-                  path: ${{ steps.package.outputs.package_path }}
+                  path: |
+                      ${{ steps.package.outputs.pc_package_path }}
+                      ${{ steps.package.outputs.xbox_package_path }}
+                      ${{ steps.package.outputs.ps5_package_path }}
+                      ${{ steps.package.outputs.creations_site_package_path }}
 
     create-release:
         name: Create GitHub and Nexus Releases
@@ -187,18 +264,37 @@ jobs:
                   $nexusDescription >> $env:GITHUB_OUTPUT
                   $delimiter >> $env:GITHUB_OUTPUT
 
-            - name: Resolve release package
+            - name: Resolve release packages
               id: release-package
               shell: pwsh
               run: |
                   $ErrorActionPreference = 'Stop'
 
-                  $packagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
-                  if (-not $packagePath) {
-                      throw "Unable to find release package for version $env:PACKAGE_VERSION."
+                  $pcPackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-PC-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $xboxPackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-XBox-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $ps5PackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-PS5-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+                  $creationsSitePackagePath = Get-ChildItem -Path ./artifacts/release -Filter "Venworks-Core-CreationsSite-$env:PACKAGE_VERSION.zip" -File | Select-Object -First 1 -ExpandProperty FullName
+
+                  if (-not $pcPackagePath) {
+                      throw "Unable to find PC release package for version $env:PACKAGE_VERSION."
                   }
 
-                  "path=$packagePath" >> $env:GITHUB_OUTPUT
+                  if (-not $xboxPackagePath) {
+                      throw "Unable to find XBox release package for version $env:PACKAGE_VERSION."
+                  }
+
+                  if (-not $ps5PackagePath) {
+                      throw "Unable to find PS5 release package for version $env:PACKAGE_VERSION."
+                  }
+
+                  if (-not $creationsSitePackagePath) {
+                      throw "Unable to find Creations Site release package for version $env:PACKAGE_VERSION."
+                  }
+
+                  "pc_path=$pcPackagePath" >> $env:GITHUB_OUTPUT
+                  "xbox_path=$xboxPackagePath" >> $env:GITHUB_OUTPUT
+                  "ps5_path=$ps5PackagePath" >> $env:GITHUB_OUTPUT
+                  "creations_site_path=$creationsSitePackagePath" >> $env:GITHUB_OUTPUT
 
             - name: Create GitHub release
               shell: bash
@@ -206,7 +302,10 @@ jobs:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   gh release create "${{ github.ref_name }}" \
-                    "${{ steps.release-package.outputs.path }}" \
+                    "${{ steps.release-package.outputs.pc_path }}" \
+                    "${{ steps.release-package.outputs.xbox_path }}" \
+                    "${{ steps.release-package.outputs.ps5_path }}" \
+                    "${{ steps.release-package.outputs.creations_site_path }}" \
                     --title "${{ github.ref_name }}" \
                     --notes-file "${{ steps.release-notes.outputs.release_notes_path }}"
 
@@ -215,7 +314,7 @@ jobs:
               with:
                   api_key: ${{ secrets.NEXUSMODS_API_KEY }}
                   file_id: ${{ secrets.NEXUSMODS_FILE_ID }}
-                  filename: ${{ steps.release-package.outputs.path }}
+                  filename: ${{ steps.release-package.outputs.pc_path }}
                   version: ${{ env.PACKAGE_VERSION }}
                   category: main
                   display_name: Venworks - Core

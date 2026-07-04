@@ -1,5 +1,10 @@
 # Venworks Core Utilities and Shared Objects
 
+## Version 2.1.1
+
+- Removed the XBox archives from Nexus Mods' version
+- Updated the workflow to make separate zips for PC, XBox, and PS5
+
 ## Version 2.1.0
 
 - Moving Scene Manager stuff to my new Dynamic Scenes Engine creation/framework.

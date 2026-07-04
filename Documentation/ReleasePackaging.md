@@ -1,6 +1,6 @@
 # Release Packaging
 
-Release automation packages committed files from `Staging` and publishes the resulting archive to GitHub Releases and Nexus Mods. GitHub Actions does not compile Papyrus, assemble Spriggit YAML, or run Bethesda Archive2. Those tools require local Starfield and Creation Kit installations and must be run before tagging a release.
+Release automation packages committed files from `Staging` and publishes the resulting archives to GitHub Releases and Nexus Mods. GitHub Actions does not compile Papyrus, assemble Spriggit YAML, or run Bethesda Archive2. Those tools require local Starfield and Creation Kit installations and must be run before tagging a release.
 
 ## Engineer Responsibilities
 
@@ -11,23 +11,32 @@ Before creating a release tag, update the generated files that correspond to the
 - Archive content changes: run `Tools/createPackages.ps1` locally and commit the updated `.ba2` files in `Staging`.
 - Changelog changes: move release notes from `Unreleased` into a `## Version x.y.z` section that matches the release tag without the leading `v`.
 
-`Staging/Venworks-Core.esp` is an editing artifact. It may be committed for local workflows, but it is intentionally excluded from the release zip.
+`Staging/Venworks-Core.esp` is an editing artifact. It may be committed for local workflows, but it is intentionally excluded from release zips.
 
 ## Release Package Contents
 
-The GitHub Action includes only these files in `Venworks-Core-x.y.z.zip`:
+The GitHub Action produces these files:
 
-- `Staging/Venworks-Core.esm`
-- `Staging/*.ba2`
+- `Venworks-Core-PC-x.y.z.zip`
+- `Venworks-Core-XBox-x.y.z.zip`
+- `Venworks-Core-PS5-x.y.z.zip`
+- `Venworks-Core-CreationsSite-x.y.z.zip`
 
-No loose scripts, source files, ESP files, metadata files, or local tool outputs are included in the published zip.
+Each package includes `Staging/Venworks-Core.esm` and the platform archives for that package:
+
+- PC: PC BA2 archives only. These are BA2 files that do not end in `_XBox.ba2` or `_PS.ba2`.
+- XBox: XBox BA2 archives only. These are BA2 files that end in `_XBox.ba2`.
+- PS5: PC BA2 archives copied with PS archive names, such as `Venworks-Core_Main_PS.ba2`.
+- Creations Site: PC archives, XBox archives, and generated PS5 archive copies in one zip for Bethesda Game Studios Creations upload workflows.
+
+No loose scripts, source files, ESP files, metadata files, or local tool outputs are included in published zips. GitHub Releases receives all four zips. Nexus Mods receives only the PC zip.
 
 ## Local Pre-Tag Checklist
 
 1. Run the local workflows needed for the changes being released.
 2. Confirm `Staging/Venworks-Core.esm` is current.
-3. Confirm all required `.ba2` archives are present in `Staging`.
-4. Confirm `Staging/Venworks-Core.esp` is not needed by the release package.
+3. Confirm all required PC and XBox `.ba2` archives are present in `Staging`.
+4. Confirm `Staging/Venworks-Core.esp` is not needed by any release package.
 5. Confirm `CHANGELOG.md` has a `## Version x.y.z` section for the tag.
 6. Commit the updated release inputs.
 7. Create and push a tag in `v<major>.<minor>.<patch>` format from current `master`.

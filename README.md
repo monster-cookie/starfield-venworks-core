@@ -34,12 +34,16 @@ Common scripts:
 
 ## Releases
 
-Releases are created from tags in `v<major>.<minor>.<patch>` format on `master`. The GitHub release workflow packages only:
+Releases are created from tags in `v<major>.<minor>.<patch>` format on `master`. The GitHub release workflow produces four zips:
 
-- `Staging/Venworks-Core.esm`
-- `Staging/*.ba2`
+- `Venworks-Core-PC-x.y.z.zip`
+- `Venworks-Core-XBox-x.y.z.zip`
+- `Venworks-Core-PS5-x.y.z.zip`
+- `Venworks-Core-CreationsSite-x.y.z.zip`
 
-The workflow intentionally excludes `Staging/Venworks-Core.esp`, loose scripts, source files, metadata, and local-only outputs.
+Each zip contains `Staging/Venworks-Core.esm` and only the platform BA2 archives for that package. The PS5 package currently uses renamed copies of the PC BA2 archives, and the Creations Site package bundles the PC, XBox, and generated PS5 archive names together. The workflow intentionally excludes `Staging/Venworks-Core.esp`, loose scripts, source files, metadata, and local-only outputs.
+
+GitHub Releases receives all four zips. Nexus Mods receives only the PC zip.
 
 Release notes come from the matching `## Version x.y.z` section in [CHANGELOG.md](CHANGELOG.md). The same notes are converted to BBCode for the Nexus Mods description.
 
