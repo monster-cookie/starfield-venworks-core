@@ -1,20 +1,20 @@
-FormKey: 000811:Venworks-Core.esm
-EditorID: VWKS_Randomization_Guaranteed
+FormKey: 00004A:Venworks-Core.esm
+EditorID: VWKS_Randomization_High
 FormVersion: 582
 Conditions:
 - MutagenObjectType: ConditionFloat
   Flags:
   - OR
-  Unknown2: 88
+  Unknown2: 74
   Data:
     MutagenObjectType: GetGlobalValueConditionData
-    FirstParameter: 00080A:Venworks-Core.esm
+    FirstParameter: 000021:Venworks-Core.esm
   ComparisonValue: 1
 - MutagenObjectType: ConditionGlobal
   CompareOperator: LessThanOrEqualTo
   Flags:
   - OR
-  Unknown2: 88
+  Unknown2: 74
   Data:
     MutagenObjectType: GetRandomPercentConditionData
-  ComparisonValue: 00080C:Venworks-Core.esm
+  ComparisonValue: 000018:Venworks-Core.esm

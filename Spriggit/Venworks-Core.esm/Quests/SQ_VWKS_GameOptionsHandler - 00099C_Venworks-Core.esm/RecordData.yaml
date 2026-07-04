@@ -1,4 +1,4 @@
-FormKey: 00080B:Venworks-Core.esm
+FormKey: 00099C:Venworks-Core.esm
 EditorID: SQ_VWKS_GameOptionsHandler
 FormVersion: 582
 VirtualMachineAdapter:
@@ -11,10 +11,10 @@ VirtualMachineAdapter:
       - Members:
         - MutagenObjectType: ScriptObjectProperty
           Name: ValueGlobal
-          Object: 00080A:Venworks-Core.esm
+          Object: 000021:Venworks-Core.esm
         - MutagenObjectType: ScriptObjectProperty
           Name: Option
-          Object: 000808:Venworks-Core.esm
+          Object: 000997:Venworks-Core.esm
     - MutagenObjectType: ScriptObjectProperty
       Name: PEO_GPO_EnvironmentalDamage
       Object: 00002C:sfbgs007.esm
@@ -23,7 +23,7 @@ VirtualMachineAdapter:
       Object: 000035:sfbgs007.esm
     - MutagenObjectType: ScriptObjectProperty
       Name: Player_Alias
-      Object: 00080B:Venworks-Core.esm
+      Object: 00099C:Venworks-Core.esm
       Alias: 0
   Versioning:
   - Break0

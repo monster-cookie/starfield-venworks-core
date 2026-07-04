@@ -1,4 +1,4 @@
-FormKey: 000819:Venworks-Core.esm
+FormKey: 000023:Venworks-Core.esm
 EditorID: VWKS_PlayerLevelHandler
 FormVersion: 582
 VirtualMachineAdapter:
@@ -7,7 +7,7 @@ VirtualMachineAdapter:
     Properties:
     - MutagenObjectType: ScriptObjectProperty
       Name: playerLevel
-      Object: 000818:Venworks-Core.esm
+      Object: 000030:Venworks-Core.esm
   Versioning:
   - Break0
   ExtraBindDataVersion: 0
